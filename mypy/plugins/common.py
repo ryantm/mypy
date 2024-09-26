@@ -312,7 +312,8 @@ def _prepare_class_namespace(cls: ClassDef, name: str) -> None:
     if name in info.names:
         sym = info.names[name]
         if sym.plugin_generated and isinstance(sym.node, FuncDef):
-            cls.defs.body.remove(sym.node)
+            if sym.node in cls.defs.body:
+                cls.defs.body.remove(sym.node)
 
     # NOTE: we would like the plugin generated node to dominate, but we still
     # need to keep any existing definitions so they get semantically analyzed.
